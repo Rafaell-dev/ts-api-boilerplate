@@ -14,7 +14,6 @@ This project uses the following technologies:
 - **[Express](https://expressjs.com/)** - Minimalist web framework / Framework web minimalista
 - **[Prisma](https://www.prisma.io/)** - Modern ORM for Node.js / ORM moderno para Node.js
 - **[Zod](https://zod.dev/)** - TypeScript-first schema validation / Validação de schema TypeScript-first
-- **[Joi](https://joi.dev/)** - Alternative data validation / Validação de dados alternativa
 - **[JWT](https://jwt.io/)** - JSON Web Token authentication / Autenticação via JSON Web Tokens
 - **[ESLint](https://eslint.org/)** + **[Prettier](https://prettier.io/)** - Linting and formatting / Linting e formatação
 
