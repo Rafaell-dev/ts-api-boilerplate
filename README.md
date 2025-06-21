@@ -21,7 +21,7 @@ This project uses the following technologies:
 
 1. Clone the repository / Clone o repositório:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Rafaell-dev/ts-api-boilerplate.git
 cd ts-api-boilerplate
 ```
 
