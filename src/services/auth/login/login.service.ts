@@ -1,5 +1,6 @@
 import { UserRepository } from "../../../repositories/users/user.repository";
 import { generateToken } from "../../../utils/jwt";
+import bcrypt from "bcryptjs";
 
 export interface LoginServiceParams {
     email: string;
@@ -28,7 +29,9 @@ export class LoginService {
                 };
             }
 
-            if (existingUser.password !== params.password) {
+            const passwordMatch = await bcrypt.compare(params.password, existingUser.password);
+
+            if(!passwordMatch) {
                 return {
                     status: 0,
                     message: "Invalid password"
