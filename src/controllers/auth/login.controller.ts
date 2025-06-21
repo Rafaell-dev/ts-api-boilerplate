@@ -22,7 +22,7 @@ export class LoginController {
 
 			const result = await loginService.execute({ email, password });
 
-			if (!result) {
+			if (!result || !result.token) {
 				return res.status(401).json({ message: "Password or email invalid." });
 			}
 
