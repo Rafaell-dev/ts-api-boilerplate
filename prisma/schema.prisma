@@ -15,6 +15,44 @@ model User {
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
 
+    organization_id Int
+    organization    Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+
     @@index([email], name: "idx_user_email")
+    @@index([organization_id], name: "idx_user_organization_id")
     @@map("users")
+}
+
+model Enterprise {
+    id         Int      @id @default(autoincrement())
+    cnpj       String?  @unique
+    cpf        String?  @unique
+    address    String?
+    slug       String   @unique
+    active     Boolean  @default(true)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    organization_id Int
+    organization    Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+
+    @@index([cnpj], name: "idx_enterprise_cnpj")
+    @@index([cpf], name: "idx_enterprise_cpf")
+    @@index([slug], name: "idx_enterprise_slug")
+    @@index([organization_id], name: "idx_enterprise_organization_id")
+    @@map("enterprises")
+}
+
+model Organization {
+    id          Int          @id @default(autoincrement())
+    description String?
+    slug        String       @unique
+    active      Boolean      @default(true)
+    created_at  DateTime     @default(now())
+    updated_at  DateTime     @updatedAt
+    Enterprise  Enterprise[]
+    User        User[]
+
+    @@index([slug], name: "idx_organization_slug")
+    @@map("organizations")
 }
