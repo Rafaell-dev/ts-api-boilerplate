@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { login } from "./login.routes";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { LoginController } from "../../controllers/auth/login.controller";
 
 const authRoutes = Router();
 
-authRoutes.use("/login", login);
+authRoutes.use("/login", asyncHandler(LoginController.manipular));
 
 export { authRoutes };
