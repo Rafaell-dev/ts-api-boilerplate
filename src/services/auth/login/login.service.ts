@@ -38,7 +38,7 @@ export class LoginService {
                 };
             }
 
-            const token = generateToken({ userId: existingUser.id, email: existingUser.email });
+            const token = generateToken({ userId: existingUser.id, email: existingUser.email, organizationId: existingUser.organizationId });
 
             return { token, status: 1, message: "Login successful" };
         } catch (error) {
