@@ -1,9 +1,9 @@
-import { Enterprise, mapDataToEnterprise } from "../../entities/Enterprise";
+import { Enterprise, mapDataToEnterprise } from '../../entities/enterprise';
 import {
 	IEnterpriseData,
 	IEnterpriseRepository,
-} from "./IEnterpriseRepository";
-import { prisma } from "../../utils/prisma";
+} from './IEnterpriseRepository';
+import { prisma } from '../../utils/prisma';
 
 export class EnterpriseRepository implements IEnterpriseRepository {
 	async findById(id: number): Promise<Enterprise | null> {
@@ -61,7 +61,7 @@ export class EnterpriseRepository implements IEnterpriseRepository {
 				cnpj: enterpriseData.cnpj ?? null,
 				cpf: enterpriseData.cpf ?? null,
 				address: enterpriseData.address ?? null,
-                organization_id: enterpriseData.organization_id,
+				organization_id: enterpriseData.organization_id,
 			},
 		});
 
