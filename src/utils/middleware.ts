@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -14,24 +14,24 @@ interface JwtPayload {
 export function authMiddleware(
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): void {
 	const authHeader = req.headers.authorization;
 
 	if (!authHeader) {
 		res.status(401).json({ 
-			message: "Authorization token not provided",
-			error: "MISSING_TOKEN"
+			message: 'Authorization token not provided',
+			error: 'MISSING_TOKEN',
 		});
 		return;
 	}
 
-	const tokenParts = authHeader.split(" ");
+	const tokenParts = authHeader.split(' ');
 	
-	if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
+	if (tokenParts.length !== 2 || tokenParts[0] !== 'Bearer') {
 		res.status(401).json({ 
-			message: "Invalid authorization header format. Expected: Bearer <token>",
-			error: "INVALID_AUTH_FORMAT"
+			message: 'Invalid authorization header format. Expected: Bearer <token>',
+			error: 'INVALID_AUTH_FORMAT',
 		});
 		return;
 	}
@@ -40,17 +40,17 @@ export function authMiddleware(
 
 	if (!token) {
 		res.status(401).json({ 
-			message: "Authorization token not provided",
-			error: "MISSING_TOKEN"
+			message: 'Authorization token not provided',
+			error: 'MISSING_TOKEN',
 		});
 		return;
 	}
 
 	if (!JWT_SECRET) {
-		console.error("JWT_SECRET environment variable is not defined");
+		console.error('JWT_SECRET environment variable is not defined');
 		res.status(500).json({ 
-			message: "Internal server error",
-			error: "SERVER_CONFIGURATION_ERROR"
+			message: 'Internal server error',
+			error: 'SERVER_CONFIGURATION_ERROR',
 		});
 		return;
 	}
@@ -58,10 +58,10 @@ export function authMiddleware(
 	try {
 		const decoded = jwt.verify(token, JWT_SECRET);
 
-		if (typeof decoded !== "object" || !decoded || !("userId" in decoded)) {
+		if (typeof decoded !== 'object' || !decoded || !('userId' in decoded)) {
 			res.status(401).json({ 
-				message: "Invalid token payload",
-				error: "INVALID_TOKEN_PAYLOAD"
+				message: 'Invalid token payload',
+				error: 'INVALID_TOKEN_PAYLOAD',
 			});
 			return;
 		}
@@ -70,8 +70,8 @@ export function authMiddleware(
 
 		if (!payload.userId || !payload.email || !payload.organizationId) {
 			res.status(401).json({ 
-				message: "Invalid token: missing required fields",
-				error: "INCOMPLETE_TOKEN_PAYLOAD"
+				message: 'Invalid token: missing required fields',
+				error: 'INCOMPLETE_TOKEN_PAYLOAD',
 			});
 			return;
 		}
@@ -86,24 +86,24 @@ export function authMiddleware(
 	} catch (err) {
 		if (err instanceof jwt.TokenExpiredError) {
 			res.status(401).json({ 
-				message: "Token has expired",
-				error: "TOKEN_EXPIRED"
+				message: 'Token has expired',
+				error: 'TOKEN_EXPIRED',
 			});
 			return;
 		}
 		
 		if (err instanceof jwt.JsonWebTokenError) {
 			res.status(401).json({ 
-				message: "Invalid token",
-				error: "INVALID_TOKEN"
+				message: 'Invalid token',
+				error: 'INVALID_TOKEN',
 			});
 			return;
 		}
 
-		console.error("Authentication error:", err);
+		console.error('Authentication error:', err);
 		res.status(401).json({ 
-			message: "Authentication failed",
-			error: "AUTH_ERROR"
+			message: 'Authentication failed',
+			error: 'AUTH_ERROR',
 		});
 		return;
 	}

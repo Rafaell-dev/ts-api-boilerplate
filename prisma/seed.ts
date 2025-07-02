@@ -1,29 +1,29 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
 	const organization = await prisma.organization.create({
 		data: {
-			slug: "Anjotech",
-			description: "A leading tech company.",
+			slug: 'Anjotech',
+			description: 'A leading tech company.',
 			created_at: new Date(),
 		},
 	});
 
-	const passwordHash = await bcrypt.hash("123456", 10);
+	const passwordHash = await bcrypt.hash('123456', 10);
 
 	await prisma.user.create({
 		data: {
-			name: "seraphim",
-			email: "seraphim@anjotech.net",
+			name: 'seraphim',
+			email: 'seraphim@anjotech.net',
 			password: passwordHash,
 			organization_id: organization.id,
 		},
 	});
 
-	console.log("Seed completed.");
+	console.log('Seed completed.');
 }
 
 main()

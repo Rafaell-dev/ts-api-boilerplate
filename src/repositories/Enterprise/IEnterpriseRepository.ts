@@ -1,4 +1,4 @@
-import { Enterprise } from "../../entities/Enterprise";
+import { Enterprise } from '../../entities/enterprise';
 
 export interface IEnterpriseData {
     id?: number;

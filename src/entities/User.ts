@@ -1,5 +1,5 @@
-import { IUserData } from "../repositories/users/IUserRepository";
-import { Entity } from "./Entity";
+import { IUserData } from '../repositories/users/IUserRepository';
+import { Entity } from './entity';
 
 export interface IUserProps {
 	id?: number;
