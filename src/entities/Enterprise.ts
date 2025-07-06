@@ -7,6 +7,7 @@ export interface IEnterpriseProps {
     cnpj?: string;
     cpf?: string;
     address?: string;
+	active: boolean;
     organizationId: number;
     createdAt?: Date;
     updatedAt?: Date;
@@ -43,6 +44,10 @@ export class Enterprise extends Entity<IEnterpriseProps>{
 		return this.props.organizationId;
 	}
 
+	get active(): boolean {
+		return this.props.active;
+	}
+
 	get createdAt(): Date | undefined {
 		return this.props.createdAt;
 	}
@@ -57,6 +62,7 @@ export class Enterprise extends Entity<IEnterpriseProps>{
 			slug: this.slug,
 			cnpj: this.cnpj,
 			cpf: this.cpf,
+			active: this.active,
 			address: this.address,
 			organization_id: this.organizationId,
 			created_at: this.createdAt,
@@ -73,6 +79,7 @@ export function mapDataToEnterprise(enterprise: IEnterpriseData): Enterprise {
 		cpf: enterprise.cpf ?? undefined,
 		address: enterprise.address ?? undefined,
 		organizationId: enterprise.organization_id,
+		active: enterprise.active,
 		createdAt: enterprise.created_at ?? undefined,
 		updatedAt: enterprise.updated_at ?? undefined,
 	});

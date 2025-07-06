@@ -54,6 +54,14 @@ export class EnterpriseRepository implements IEnterpriseRepository {
 		return mapDataToEnterprise(query);
 	}
 
+	async findByOrganizationId(organizationId: number): Promise<Enterprise[]> {
+		const query = await prisma.enterprise.findMany({
+			where: { organization_id: organizationId },
+		});
+
+		return query.map(mapDataToEnterprise);
+	}
+
 	async create(enterpriseData: IEnterpriseData): Promise<Enterprise> {
 		const query = await prisma.enterprise.create({
 			data: {
@@ -75,18 +83,12 @@ export class EnterpriseRepository implements IEnterpriseRepository {
 				slug: enterpriseData.slug,
 				cnpj: enterpriseData.cnpj ?? null,
 				cpf: enterpriseData.cpf ?? null,
+				active: enterpriseData.active,
 				address: enterpriseData.address ?? null,
 				updated_at: new Date(),
 			},
 		});
 
 		return mapDataToEnterprise(query);
-	}
-
-	async inactivate(id: number): Promise<void> {
-		await prisma.enterprise.update({
-			where: { id },
-			data: { updated_at: new Date(), active: false },
-		});
 	}
 }

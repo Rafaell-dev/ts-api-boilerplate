@@ -6,6 +6,7 @@ export interface IEnterpriseData {
     cnpj?: string | null;
     cpf?: string | null;
     address?: string | null;
+    active: boolean;
     organization_id: number;
     created_at?: Date;
     updated_at?: Date | null;
@@ -16,7 +17,7 @@ export interface IEnterpriseRepository {
     findBySlug(slug: string): Promise<Enterprise | null>;
     findByCnpj(cnpj: string): Promise<Enterprise | null>;
     findByCpf(cpf: string): Promise<Enterprise | null>;
+    findByOrganizationId(organizationId: number): Promise<Enterprise[]>;
     create(enterpriseData: IEnterpriseData): Promise<Enterprise>;
     update(enterpriseData: IEnterpriseData): Promise<Enterprise>;
-    inactivate(id: number): Promise<void>;
 }
