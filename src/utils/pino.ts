@@ -1,6 +1,6 @@
-import Pino from "pino";
-import fs from "fs";
-import { env } from "./env";
+import Pino from 'pino';
+import fs from 'fs';
+import { env } from './env';
 
 const streams: Pino.StreamEntry[] = [];
 
@@ -10,73 +10,73 @@ if (env.LOG_DESTINATION) {
 	}
 
 	streams.push({
-		level: "info",
+		level: 'info',
 		stream: Pino.destination({
 			dest: `${env.LOG_DESTINATION}/info.log`,
 			append: true,
-			sync: false
+			sync: false,
 		}),
 	});
 
 	streams.push({
-		level: "debug",
+		level: 'debug',
 		stream: Pino.destination({
 			dest: `${env.LOG_DESTINATION}/debug.log`,
 			append: true,
-			sync: false
+			sync: false,
 		}),
 	});
 
 	streams.push({
-		level: "warn",
+		level: 'warn',
 		stream: Pino.destination({
 			dest: `${env.LOG_DESTINATION}/warn.log`,
 			append: true,
-			sync: false
+			sync: false,
 		}),
 	});
 
 	streams.push({
-		level: "error",
+		level: 'error',
 		stream: Pino.destination({
 			dest: `${env.LOG_DESTINATION}/error.log`,
 			append: true,
-			sync: false
+			sync: false,
 		}),
 	});
 
 	streams.push({
-		level: "fatal",
+		level: 'fatal',
 		stream: Pino.destination({
 			dest: `${env.LOG_DESTINATION}/fatal.log`,
 			append: true,
-			sync: false
+			sync: false,
 		}),
 	});
 }
 
-if (env.LOG_TO_STDOUT || env.ENVIROMENT === "development") {
+if (env.LOG_TO_STDOUT || env.ENVIROMENT === 'development') {
 	streams.push({
-		level: env.LOG_LEVEL || "info",
+		level: env.LOG_LEVEL || 'info',
 		stream: Pino.transport({
-			target: "pino-pretty",
+			target: 'pino-pretty',
 			options: {
 				colorize: true,
-				translateTime: "yyyy-mm-dd HH:MM:ss",
-				ignore: "pid,hostname",
-				messageFormat: "{msg}",
+				translateTime: 'yyyy-mm-dd HH:MM:ss',
+				ignore: 'pid,hostname',
+				messageFormat: '{msg}',
 				levelFirst: true,
-				crlf: false
-			}
-		})
+				crlf: false,
+			},
+		}),
 	});
 }
 
 
 export const pino = streams.length > 0 
 	? Pino({
-		level: env.LOG_LEVEL || "info",
-		enabled: env.ENVIROMENT !== "test",
+		level: env.LOG_LEVEL || 'info',
+		enabled: env.ENVIROMENT !== 'test',
 		formatters: {
 			level: (label) => {
 				return { level: label };
@@ -86,21 +86,21 @@ export const pino = streams.length > 0
 		base: {
 			pid: process.pid,
 			hostname: undefined,
-		}
+		},
 	}, Pino.multistream(streams))
 	: Pino({
-		level: env.LOG_LEVEL || "info",
-		enabled: env.ENVIROMENT !== "test",
+		level: env.LOG_LEVEL || 'info',
+		enabled: env.ENVIROMENT !== 'test',
 		transport: {
-			target: "pino-pretty",
+			target: 'pino-pretty',
 			options: {
 				colorize: true,
-				translateTime: "yyyy-mm-dd HH:MM:ss",
-				ignore: "pid,hostname",
-				messageFormat: "{msg}",
+				translateTime: 'yyyy-mm-dd HH:MM:ss',
+				ignore: 'pid,hostname',
+				messageFormat: '{msg}',
 				levelFirst: true,
-			}
-		}
+			},
+		},
 	});
 
 export const createLogger = (context: string) => {
