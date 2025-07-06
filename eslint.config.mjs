@@ -18,11 +18,13 @@ const compat = new FlatCompat({
 export default defineConfig([globalIgnores(['**/dist', '**/node_modules']), {
 	extends: compat.extends(
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended'
+		'plugin:@typescript-eslint/recommended',
+		'prettier'
 	),
 
 	plugins: {
 		'@typescript-eslint': typescriptEslint,
+		prettier,
 	},
 
 	languageOptions: {
@@ -41,9 +43,10 @@ export default defineConfig([globalIgnores(['**/dist', '**/node_modules']), {
 			SwitchCase: 1,
 		}],
 
+		
 		quotes: ['error', 'single'],
 		semi: ['error', 'always'],
-
+		
 		'comma-dangle': ['error', {
 			arrays: 'always-multiline',
 			objects: 'always-multiline',
@@ -51,10 +54,11 @@ export default defineConfig([globalIgnores(['**/dist', '**/node_modules']), {
 			exports: 'always-multiline',
 			functions: 'never',
 		}],
-
+		
 		'@typescript-eslint/no-var-requires': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
 		'no-cond-assign': 'off',
+		'prettier;prettier': 'error',
 	},
 }]);
