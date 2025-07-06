@@ -15,6 +15,18 @@ export class UserRepository implements IUserRepository {
 		return mapDataToUser(user);
 	}
 
+	async findById(id: number): Promise<User | null> {
+		const user = await prisma.user.findUnique({
+			where: { id },
+		});
+
+		if (!user) {
+			return null;
+		}
+
+		return mapDataToUser(user);
+	}
+
 	async create(user: IUserData): Promise<User> {
 		const createdUser = await prisma.user.create({
 			data: {
@@ -39,5 +51,13 @@ export class UserRepository implements IUserRepository {
 		});
 
 		return mapDataToUser(updatedUser);
+	}
+
+	async findAllByOrganizationId(organizationId: number): Promise<User[]> {
+		const users = await prisma.user.findMany({
+			where: { organization_id: organizationId },
+		});
+
+		return users.map(mapDataToUser);
 	}
 }

@@ -12,7 +12,7 @@ export interface IUserProps {
 }
 
 export class User extends Entity<IUserProps> {
-	declare public readonly props: IUserProps;
+	declare public props: IUserProps;
 
 	constructor(props: IUserProps) {
 		super(props);
@@ -26,12 +26,24 @@ export class User extends Entity<IUserProps> {
 		return this.props.email;
 	}
 
+	set email(value: string) {
+		this.props.email = value;
+	}
+
 	get password(): string {
 		return this.props.password;
 	}
 
+	set password(value: string) {
+		this.props.password = value;
+	}
+
 	get name(): string {
 		return this.props.name;
+	}
+
+	set name(value: string) {
+		this.props.name = value;
 	}
 
 	get organizationId(): number {
