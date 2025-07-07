@@ -6,7 +6,7 @@ const userRoutes = Router();
 
 userRoutes.post('/create', asyncHandler(UserController.create));
 
-userRoutes.put('/:id', asyncHandler(UserController.update));
+userRoutes.patch('/:id', asyncHandler(UserController.update));
 
 userRoutes.get('/list', asyncHandler(UserController.list));
 
