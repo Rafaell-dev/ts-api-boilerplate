@@ -14,4 +14,6 @@ export const env = {
 	LOG_DESTINATION: process.env.LOG_DESTINATION || null,
 	LOG_LEVEL: (process.env.LOG_LEVEL || 'info') as Pino.Level,
 	LOG_TO_STDOUT: process.env.LOG_TO_STDOUT === 'true',
+
+	CORS_ORIGIN: process.env.CORS_ORIGIN,
 } as const;
